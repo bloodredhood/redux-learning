@@ -1,9 +1,8 @@
+import {ADD_CASH, GET_CASH} from "./types"
+
 const defaultState = {
   cash: 0
 }
-
-const ADD_CASH = "ADD_CASH"
-const GET_CASH = "GET_CASH"
 
 export const cashReducer = (state = defaultState, action) => {
   switch (action.type) {

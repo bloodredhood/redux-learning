@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import { fetchCustomers } from './asyncActions/customers';
-import { addCustomerAction, removeCustomerAction } from './store/customerReducer';
+//import { fetchCustomers } from './asyncActions/customers';
+import { addCustomerAction, removeCustomerAction, addCustomersSagaAction } from './store/types';
+import {ADD_CASH, GET_CASH} from "./store/types"
 
 function App() {
   const dispatch = useDispatch()
@@ -9,11 +10,11 @@ function App() {
   const customers = useSelector(state => state.customers.customers)
 
   const addCash = (cash) => {
-    dispatch({ type: "ADD_CASH", payload: cash })
+    dispatch({ type: ADD_CASH, payload: cash })
   }
 
   const getCash = (cash) => {
-    dispatch({ type: "GET_CASH", payload: cash })
+    dispatch({ type: GET_CASH, payload: cash })
   }
 
   const addCustomer = (name) => {
@@ -35,7 +36,7 @@ function App() {
         <button onClick={() => addCash(Number(prompt()))}>Пополнить счет</button>
         <button onClick={() => getCash(Number(prompt()))}>Снять со счета</button>
         <button onClick={() => addCustomer((prompt()))}>Добавить клиента</button>
-        <button onClick={() => dispatch(fetchCustomers())}>Получить клиентов</button>
+        <button onClick={() => dispatch(addCustomersSagaAction())}>Получить клиентов</button>
       </div>
       {customers.length > 0 ?
         <div>

@@ -1,4 +1,4 @@
-import { addManyCustomersAction } from "../store/customerReducer"
+import { addManyCustomersAction } from "../store/types"
 
 export const fetchCustomers = () => {
   return dispatch => {
