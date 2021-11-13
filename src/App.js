@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 //import { fetchCustomers } from './asyncActions/customers';
-import { addCustomerAction, removeCustomerAction, addCustomersSagaAction } from './store/types';
+import { addUserAction, removeUserAction, fetchUsers } from './store/types';
 import {ADD_CASH, GET_CASH} from "./store/types"
 
 function App() {
   const dispatch = useDispatch()
   const cash = useSelector(state => state.cash.cash)
-  const customers = useSelector(state => state.customers.customers)
+  const users = useSelector(state => state.users.users)
 
   const addCash = (cash) => {
     dispatch({ type: ADD_CASH, payload: cash })
@@ -17,16 +17,16 @@ function App() {
     dispatch({ type: GET_CASH, payload: cash })
   }
 
-  const addCustomer = (name) => {
-    const customer = {
+  const addUser = (name) => {
+    const user = {
       name,
       id: Date.now(),
     }
-    dispatch(addCustomerAction(customer))
+    dispatch(addUserAction(user))
   }
 
-  const removeCustomer = (customer) => {
-    dispatch(removeCustomerAction(customer.id))
+  const removeUser = (user) => {
+    dispatch(removeUserAction(user.id))
   }
 
   return (
@@ -35,17 +35,17 @@ function App() {
       <div style={{ display: "flex" }}>
         <button onClick={() => addCash(Number(prompt()))}>Пополнить счет</button>
         <button onClick={() => getCash(Number(prompt()))}>Снять со счета</button>
-        <button onClick={() => addCustomer((prompt()))}>Добавить клиента</button>
-        <button onClick={() => dispatch(addCustomersSagaAction())}>Получить клиентов</button>
+        <button onClick={() => addUser((prompt()))}>Добавить клиента</button>
+        <button onClick={() => dispatch(fetchUsers())}>Получить клиентов</button>
       </div>
-      {customers.length > 0 ?
+      {users.length > 0 ?
         <div>
-          {customers.map(customer =>
-            <div onClick={() => removeCustomer(customer)} style={{fontSize: "2rem",
+          {users.map(user =>
+            <div onClick={() => removeUser(user)} style={{fontSize: "2rem",
                         border: "1px solid black",
                         paddingTop: "10px",
                         marginTop: "10px"}}>
-              {customer.name}
+              {user.name}
             </div>
           )}
         </div>
